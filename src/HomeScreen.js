@@ -35,7 +35,7 @@ class HomeScreen extends Component {
         <View>
           <Button
             title="Add deck"
-            onPress={() => this.props.addDeck(new Date().getMilliseconds())}
+            onPress={() => this.props.navigation.navigate('AddDeck')}
           />
         </View>
       </View>
