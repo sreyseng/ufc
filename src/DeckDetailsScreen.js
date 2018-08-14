@@ -16,9 +16,29 @@ class DeckDetailsScreen extends Component {
     };
   };
 
+  handleAddCard = () => {
+    console.log('adding card...');
+  };
+
+  handleStartQuiz = () => {
+    console.log('start quiz...');
+  };
+
   render() {
     const item = this.props.navigation.getParam('item', null);
-    return <Container />;
+    if (!item) {
+      return (
+        <Container>
+          <Text>An unexpected error occured. Please restart application.</Text>
+        </Container>
+      );
+    }
+    return (
+      <Container>
+        <Button title="Add Card" onPress={this.handleAddCard} />
+        <Button title="Start Quiz" onPress={this.handleStartQuiz} />
+      </Container>
+    );
   }
 }
 
