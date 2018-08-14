@@ -2,7 +2,13 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Button, FlatList } from 'react-native';
-import { getDecks, addDeck } from './actions';
+import styled from 'styled-components';
+import { getDecks, addDeck, resetDecks } from './actions';
+import Card from './components/Card';
+
+const Container = styled.View`
+  flex: 1;
+`;
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -11,20 +17,17 @@ class HomeScreen extends Component {
 
   componentWillMount() {
     this.props.getDecks();
+    // this.props.addDeck('NodeJS');
+    // this.props.resetDecks();
   }
 
   renderItem = ({ item }) => {
-    return (
-      <View>
-        <Text>{item.title}</Text>
-        <Text>{item.questions.length}</Text>
-      </View>
-    );
+    return <Card item={item} />;
   };
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <Container>
         <View style={{ flex: 1 }}>
           <FlatList
             data={this.props.decks}
@@ -38,7 +41,7 @@ class HomeScreen extends Component {
             onPress={() => this.props.navigation.navigate('AddDeck')}
           />
         </View>
-      </View>
+      </Container>
     );
   }
 }
@@ -53,5 +56,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { getDecks, addDeck }
+  { getDecks, addDeck, resetDecks }
 )(HomeScreen);

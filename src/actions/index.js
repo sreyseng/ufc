@@ -80,3 +80,9 @@ export const addCardToDeck = (title, card) => {
     });
   };
 };
+
+export const resetDecks = () => {
+  return () => {
+    _save(JSON.stringify({}));
+  };
+};
