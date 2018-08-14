@@ -24,19 +24,20 @@ class HomeScreen extends Component {
 
   render() {
     return (
-      <View>
-        <Text>Homescreen</Text>
-
-        <Button
-          title="Add deck"
-          onPress={() => this.props.addDeck(new Date().getMilliseconds())}
-        />
-
-        <FlatList
-          data={this.props.decks}
-          renderItem={this.renderItem}
-          keyExtractor={(deck, index) => index.toString()}
-        />
+      <View style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
+          <FlatList
+            data={this.props.decks}
+            renderItem={this.renderItem}
+            keyExtractor={(deck, index) => index.toString()}
+          />
+        </View>
+        <View>
+          <Button
+            title="Add deck"
+            onPress={() => this.props.addDeck(new Date().getMilliseconds())}
+          />
+        </View>
       </View>
     );
   }
