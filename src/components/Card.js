@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { TouchableWithoutFeedback } from 'react-native';
 import styled from 'styled-components';
 
 const CardContainer = styled.View`
@@ -23,10 +24,12 @@ class Card extends Component {
   render() {
     const { item } = this.props;
     return (
-      <CardContainer>
-        <CardTitle>{item.title}</CardTitle>
-        <CardContent>{item.questions.length} Cards</CardContent>
-      </CardContainer>
+      <TouchableWithoutFeedback onPress={() => this.props.onPressItem(item)}>
+        <CardContainer>
+          <CardTitle>{item.title}</CardTitle>
+          <CardContent>{item.questions.length} Cards</CardContent>
+        </CardContainer>
+      </TouchableWithoutFeedback>
     );
   }
 }

@@ -1,7 +1,13 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, Button, FlatList } from 'react-native';
+import {
+  View,
+  Text,
+  Button,
+  FlatList,
+  TouchableWithoutFeedback
+} from 'react-native';
 import styled from 'styled-components';
 import { getDecks, addDeck, resetDecks } from './actions';
 import Card from './components/Card';
@@ -22,7 +28,11 @@ class HomeScreen extends Component {
   }
 
   renderItem = ({ item }) => {
-    return <Card item={item} />;
+    return <Card item={item} onPressItem={this.onPressItem} />;
+  };
+
+  onPressItem = (item) => {
+    this.props.navigation.navigate('DeckDetails', { item });
   };
 
   render() {
