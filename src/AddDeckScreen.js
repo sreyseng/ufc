@@ -15,7 +15,7 @@ const Container = styled.View`
 
 const Input = styled.TextInput`
   height: 40px;
-  border: 1px gray;
+  border: ${(props) => (props.error == true ? '1px red' : '1px gray')}
   margin-top: 10px;
 `;
 
@@ -35,7 +35,7 @@ class AddDeckScreen extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { deckTitle: '', error: '' };
+    this.state = { deckTitle: '', errors: [] };
   }
 
   static navigationOptions = {
@@ -57,7 +57,7 @@ class AddDeckScreen extends Component {
       errors.push('Deck title cannot be empty.');
     }
 
-    if (!validator.isLength(deckTitle, { min: 2, max: 50 })) {
+    if (!validator.isLength(deckTitle, { min: 2, max: 100 })) {
       errors.push('Deck title must be between 2 and 100 characters.');
     }
     console.log(errors.length);
@@ -77,8 +77,9 @@ class AddDeckScreen extends Component {
           placeholder="Enter deck title"
           value={this.state.deckTitle}
           onChangeText={this.handleTextChange}
+          error={this.state.errors.length > 0 ? true : false}
         />
-        {this.state.errors && (
+        {this.state.errors.length > 0 && (
           <ErrorText>{_.map(this.state.errors).join('\n')}</ErrorText>
         )}
         <Button title="Add Deck" onPress={this.handleAddDeck} />
