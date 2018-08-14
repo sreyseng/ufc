@@ -4,7 +4,7 @@ import { RECEIVE_DECK, RECEIVE_DECKS, DECK_CREATED, CARD_ADDED } from './types';
 export const getDecks = () => {
   return (dispatch) => {
     _get().then((data) => {
-      console.log(data);
+      console.log('data', data);
       dispatch({
         type: RECEIVE_DECKS,
         payload: JSON.parse(data)

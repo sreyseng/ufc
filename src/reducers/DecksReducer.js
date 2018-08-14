@@ -8,7 +8,7 @@ import {
 const INITIAL_STATE = null;
 
 export default (state = INITIAL_STATE, action) => {
-  console.log(action);
+  // console.log(action);
   switch (action.type) {
     case RECEIVE_DECKS:
       return action.payload;

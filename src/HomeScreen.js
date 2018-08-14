@@ -16,6 +16,11 @@ class HomeScreen extends Component {
     return (
       <View>
         <Text>Homescreen</Text>
+
+        <Button
+          title="Add deck"
+          onPress={() => this.props.addDeck(new Date().getMilliseconds())}
+        />
       </View>
     );
   }
