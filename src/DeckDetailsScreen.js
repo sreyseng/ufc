@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { Text, Button } from 'react-native';
 import styled from 'styled-components';
 import Card from './components/Card';
 
@@ -17,7 +17,7 @@ class DeckDetailsScreen extends Component {
   };
 
   handleAddCard = () => {
-    console.log('adding card...');
+    this.props.navigation.navigate('AddCard');
   };
 
   handleStartQuiz = () => {
@@ -35,6 +35,7 @@ class DeckDetailsScreen extends Component {
     }
     return (
       <Container>
+        <Card item={item} />
         <Button title="Add Card" onPress={this.handleAddCard} />
         <Button title="Start Quiz" onPress={this.handleStartQuiz} />
       </Container>

@@ -24,7 +24,10 @@ class Card extends Component {
   render() {
     const { item } = this.props;
     return (
-      <TouchableWithoutFeedback onPress={() => this.props.onPressItem(item)}>
+      <TouchableWithoutFeedback
+        onPress={
+          this.props.onPressItem && (() => this.props.onPressItem(item))
+        }>
         <CardContainer>
           <CardTitle>{item.title}</CardTitle>
           <CardContent>{item.questions.length} Cards</CardContent>
