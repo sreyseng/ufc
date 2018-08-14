@@ -10,7 +10,10 @@ const RouterNavigation = createStackNavigator(
     DeckDetails: DeckDetailsScreen
   },
   {
-    initialRouteName: 'Home'
+    initialRouteName: 'Home',
+    navigationOptions: {
+      headerBackTitle: null
+    }
   }
 );
 

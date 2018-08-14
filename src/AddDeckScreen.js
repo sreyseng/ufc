@@ -57,8 +57,8 @@ class AddDeckScreen extends Component {
       errors.push('Deck title cannot be empty.');
     }
 
-    if (!validator.isLength(deckTitle, { min: 2, max: 100 })) {
-      errors.push('Deck title must be between 2 and 100 characters.');
+    if (!validator.isLength(deckTitle, { min: 2, max: 50 })) {
+      errors.push('Deck title must be between 2 and 50 characters.');
     }
     console.log(errors.length);
     if (errors.length > 0) {

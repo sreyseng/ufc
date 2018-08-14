@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, Button } from 'react-native';
+import styled from 'styled-components';
+import Card from './components/Card';
+
+const Container = styled.View`
+  flex: 1;
+`;
 
 class DeckDetailsScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -11,11 +17,8 @@ class DeckDetailsScreen extends Component {
   };
 
   render() {
-    return (
-      <View>
-        <Text>{this.props.navigation.getParam('item', null).title}</Text>
-      </View>
-    );
+    const item = this.props.navigation.getParam('item', null);
+    return <Container />;
   }
 }
 
