@@ -1,34 +1,41 @@
 import { _save, _get } from '../utils/StorageAPI';
-
-export const RECEIVE_DECKS = 'receive_decks';
-export const DECK_CREATED = 'deck_created';
-export const RECEIVE_DECK = 'receive_deck';
-export const CARD_ADDED = 'card_added';
+import { RECEIVE_DECK, RECEIVE_DECKS, DECK_CREATED, CARD_ADDED } from './types';
 
 export const getDecks = () => {
   return (dispatch) => {
     _get().then((data) => {
+      console.log(data);
       dispatch({
         type: RECEIVE_DECKS,
-        payload: data
+        payload: JSON.parse(data)
       });
     });
   };
 };
 
-export const createNewDeck = (title) => {
+export const addDeck = (title) => {
+  if (!title) {
+    console.warn('title required');
+    return;
+  }
   return (dispatch) => {
     _get().then((results) => {
-      const data = JSON.parse(results);
-      data[title] = {
+      let data = JSON.parse(results);
+      if (!data) {
+        data = {};
+      }
+
+      const deck = {
         title,
         questions: []
       };
 
-      _save(JSON.stringify(data)).then(() => {
+      data[title] = deck;
+
+      return _save(JSON.stringify(data)).then(() => {
         dispatch({
           type: DECK_CREATED,
-          payload: title
+          payload: deck
         });
       });
     });
@@ -36,6 +43,10 @@ export const createNewDeck = (title) => {
 };
 
 export const getDeck = (id) => {
+  if (!id) {
+    console.warn('id required');
+    return;
+  }
   return (dispatch) => {
     _get().then((results) => {
       const data = JSON.parse(results);

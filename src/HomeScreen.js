@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Button } from 'react-native';
-import { getDecks, createNewDeck } from './actions';
+import { getDecks, addDeck } from './actions';
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -9,7 +9,7 @@ class HomeScreen extends Component {
   };
 
   componentWillMount() {
-    this.props.createNewDeck('test 6');
+    this.props.getDecks();
   }
 
   render() {
@@ -22,10 +22,11 @@ class HomeScreen extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log('state', state);
   return {};
 }
 
 export default connect(
   mapStateToProps,
-  { getDecks, createNewDeck }
+  { getDecks, addDeck }
 )(HomeScreen);
