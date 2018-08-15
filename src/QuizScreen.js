@@ -38,16 +38,18 @@ class QuizScreen extends Component {
     super(props);
 
     const item = this.props.navigation.getParam('item', null);
+    const originalQuestions = [...item.questions];
 
     this.state = {
       complete: false,
       questions: {
         answered: [],
-        unanswered: [...item.questions]
+        unanswered: [...originalQuestions]
       },
       correct: 0,
       incorrect: 0,
-      showFront: true
+      showFront: true,
+      currentCard: this.getRandomQuestionHelper(originalQuestions)
     };
   }
 
@@ -71,11 +73,11 @@ class QuizScreen extends Component {
     );
   };
 
-  getRandomQuestionHelper = () => {
-    const length = this.state.questions.unanswered.length;
+  getRandomQuestionHelper = (questions) => {
+    const length = questions.length;
     const rand = Math.floor(Math.random() * length + 0);
     if (length > 0) {
-      const question = this.state.questions.unanswered[rand];
+      const question = questions[rand];
       question['id'] = rand;
       return question;
     }
@@ -93,7 +95,8 @@ class QuizScreen extends Component {
       complete: unanswered.length === 0,
       correct: isCorrect ? this.state.correct + 1 : this.state.correct,
       incorrect: !isCorrect ? this.state.incorrect + 1 : this.state.incorrect,
-      showFront: true
+      showFront: true,
+      currentCard: this.getRandomQuestionHelper(unanswered)
     });
   };
 
@@ -103,21 +106,23 @@ class QuizScreen extends Component {
 
   handleRestartQuiz = () => {
     const item = this.props.navigation.getParam('item', null);
+    const originalQuestions = [...item.questions];
 
     this.setState({
       complete: false,
       questions: {
         answered: [],
-        unanswered: [...item.questions]
+        unanswered: [...originalQuestions]
       },
       correct: 0,
       incorrect: 0,
-      showFront: true
+      showFront: true,
+      currentCard: this.getRandomQuestionHelper(originalQuestions)
     });
   };
 
   render() {
-    const item = this.getRandomQuestionHelper();
+    const item = this.state.currentCard;
     if (!item && !this.state.complete) {
       return (
         <Container>
