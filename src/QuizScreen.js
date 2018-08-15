@@ -102,8 +102,6 @@ class QuizScreen extends Component {
   };
 
   handleRestartQuiz = () => {
-    console.log('restart quiz');
-
     const item = this.props.navigation.getParam('item', null);
 
     this.setState({
