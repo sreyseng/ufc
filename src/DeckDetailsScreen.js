@@ -40,7 +40,6 @@ class DeckDetailsScreen extends Component {
   };
 
   handleStartQuiz = (item) => {
-    console.log('start quiz', item);
     if (item && item.questions.length === 0) {
       this.setState({
         error: 'You have no cards for practice! Please add some first.'
@@ -64,7 +63,7 @@ class DeckDetailsScreen extends Component {
     return (
       <Container>
         <Card item={item} />
-        {this.state.error && <ErrorText>{this.state.error}</ErrorText>}
+        {this.state.error !== '' && <ErrorText>{this.state.error}</ErrorText>}
         <Button onPress={() => this.handleAddCard(item.title)}>Add Card</Button>
         <Button onPress={() => this.handleStartQuiz(item)}>Start Quiz</Button>
       </Container>

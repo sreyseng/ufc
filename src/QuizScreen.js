@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import styled from 'styled-components';
 import Button from './components/Button';
+import {
+  clearNotification,
+  setLocalNotification
+} from './utils/NotificationsAPI';
 
 const Container = styled.View`
   flex: 1;
@@ -86,13 +90,19 @@ class QuizScreen extends Component {
   handleAnswer = (isCorrect, id) => {
     const unanswered = this.state.questions.unanswered;
     unanswered.splice(id, 1);
+
+    const complete = unanswered.length === 0;
+    if (complete) {
+      clearNotification().then(setLocalNotification);
+    }
+
     this.setState({
       questions: {
         ...this.state.questions,
         unanswered,
         answered: [...this.state.questions.answered, id]
       },
-      complete: unanswered.length === 0,
+      complete,
       correct: isCorrect ? this.state.correct + 1 : this.state.correct,
       incorrect: !isCorrect ? this.state.incorrect + 1 : this.state.incorrect,
       showFront: true,

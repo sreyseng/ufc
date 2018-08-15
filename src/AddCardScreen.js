@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, Text, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import validator from 'validator';
@@ -23,7 +22,6 @@ validateFields = (fieldType, value) => {
     errors.push(`${fieldType} must be between 2 and 250 characters.`);
   }
 
-  console.log(errors);
   return errors;
 };
 
