@@ -4,8 +4,9 @@ import { View, Text, Button, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import validator from 'validator';
-import { addDeck } from './actions';
+import { addCardToDeck } from './actions';
 import { isEmpty } from 'rxjs/operators';
+import { isValid } from 'ipaddr.js';
 
 const Container = styled.View`
   flex: 1;
@@ -31,6 +32,20 @@ const ErrorText = styled.Text`
   text-align: center;
 `;
 
+validateFields = (fieldType, value) => {
+  const errors = [];
+
+  if (validator.isEmpty(value)) {
+    errors.push(`${fieldType} cannot be empty`);
+  }
+
+  if (!validator.isLength(value, { min: 2, max: 250 })) {
+    errors.push(`${fieldType} must be between 2 and 250 characters.`);
+  }
+
+  return errors;
+};
+
 class AddCardScreen extends Component {
   constructor(props) {
     super(props);
@@ -47,8 +62,6 @@ class AddCardScreen extends Component {
   };
 
   handleTextChange = (prop, value) => {
-    console.log('prop', prop);
-    console.log('value', value);
     this.setState({
       [prop]: value,
       errors: { ...this.state.errors, [prop]: [] }
@@ -57,30 +70,26 @@ class AddCardScreen extends Component {
 
   handleAddCard = () => {
     const { question, answer } = this.state;
-    const errors = { question: [], answer: [] };
+    let errors = { question: [], answer: [] };
 
-    if (validator.isEmpty(question)) {
-      errors.question.push('Question cannot be empty');
-    }
-
-    if (validator.isEmpty(answer)) {
-      errors.answer.push('Answer cannot be empty');
-    }
-
-    if (!validator.isLength(question, { min: 2, max: 250 })) {
-      errors.question.push('Question must be between 2 and 250 characters.');
-    }
-
-    if (!validator.isLength(answer, { min: 2, max: 250 })) {
-      errors.answer.push('Deck title must be between 2 and 250 characters.');
-    }
+    errors.question = validateFields('Question', question);
+    errors.answer = validateFields('Answer', answer);
 
     if (errors.question.length > 0 || errors.answer.length > 0) {
       this.setState({ errors });
     } else {
-      console.log('adding card...', this.state);
-      // this.props.addDeck(deckTitle);
-      // this.props.navigation.navigate('Home');
+      const title = this.props.navigation.getParam('title', null);
+      const card = {
+        question: this.state.question,
+        answer: this.state.answer
+      };
+
+      this.props.addCardToDeck(title, card, (callback) => {
+        console.log('done....');
+        this.props.navigation.navigate('DeckDetails', {
+          item: this.props.decks[title]
+        });
+      });
     }
   };
 
@@ -108,13 +117,19 @@ class AddCardScreen extends Component {
           <ErrorText>{_.map(this.state.errors.answer).join('\n')}</ErrorText>
         )}
 
-        <Button title="Add Deck" onPress={this.handleAddCard} />
+        <Button title="Add Card" onPress={this.handleAddCard} />
       </Container>
     );
   }
 }
 
+function mapStateToProps({ decks }) {
+  return {
+    decks
+  };
+}
+
 export default connect(
-  null,
-  { addDeck }
+  mapStateToProps,
+  { addCardToDeck }
 )(AddCardScreen);

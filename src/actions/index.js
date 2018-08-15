@@ -58,7 +58,7 @@ export const getDeck = (id) => {
   };
 };
 
-export const addCardToDeck = (title, card) => {
+export const addCardToDeck = (title, card, callback) => {
   return (dispatch) => {
     _get().then((results) => {
       const data = JSON.parse(results);
@@ -68,6 +68,7 @@ export const addCardToDeck = (title, card) => {
         data[title] = deck;
       }
 
+      console.log('addCardToDeck', deck);
       _save(JSON.stringify(data)).then(() => {
         dispatch({
           type: CARD_ADDED,
@@ -76,6 +77,7 @@ export const addCardToDeck = (title, card) => {
             card
           }
         });
+        callback();
       });
     });
   };
