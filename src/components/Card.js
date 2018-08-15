@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableWithoutFeedback } from 'react-native';
+import { TouchableWithoutFeedback, Animated, View } from 'react-native';
 import styled from 'styled-components';
 
 const CardContainer = styled.View`
@@ -9,11 +9,7 @@ const CardContainer = styled.View`
   margin-left: 5px;
   margin-right: 5px;
   margin-top: 10px;
-`;
-
-const CardTitle = styled.Text`
-  font-size: 20px;
-  font-weight: bold;
+  flex-direction: row;
 `;
 
 const CardContent = styled.Text`
@@ -21,16 +17,41 @@ const CardContent = styled.Text`
 `;
 
 class Card extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fontSize: new Animated.Value(20)
+    };
+  }
+
+  animate = (item) => {
+    this.state.fontSize.setValue(20);
+
+    Animated.timing(this.state.fontSize, {
+      toValue: 30,
+      duration: 1000
+    }).start(() => {
+      this.state.fontSize.setValue(20);
+      this.props.onPressItem(item);
+    });
+  };
+
   render() {
     const { item } = this.props;
     return (
       <TouchableWithoutFeedback
-        onPress={
-          this.props.onPressItem && (() => this.props.onPressItem(item))
-        }>
+        onPress={this.props.onPressItem && (() => this.animate(item))}>
         <CardContainer>
-          <CardTitle>{item.title}</CardTitle>
-          <CardContent>{item.questions.length} Cards</CardContent>
+          <View style={{ flex: 1 }}>
+            <Animated.Text
+              style={{
+                fontSize: this.state.fontSize,
+                fontWeight: 'bold'
+              }}>
+              {item.title}
+            </Animated.Text>
+            <CardContent>{item.questions.length} Cards</CardContent>{' '}
+          </View>
         </CardContainer>
       </TouchableWithoutFeedback>
     );

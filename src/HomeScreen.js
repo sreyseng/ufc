@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, FlatList, TouchableWithoutFeedback } from 'react-native';
+import { View, FlatList } from 'react-native';
 import styled from 'styled-components';
 import { getDecks, addDeck, resetDecks } from './actions';
 import Card from './components/Card';
@@ -18,8 +18,6 @@ class HomeScreen extends Component {
 
   componentWillMount() {
     this.props.getDecks();
-    // this.props.addDeck('NodeJS');
-    // this.props.resetDecks();
   }
 
   renderItem = ({ item }) => {
@@ -44,10 +42,6 @@ class HomeScreen extends Component {
           <Button onPress={() => this.props.navigation.navigate('AddDeck')}>
             Add Deck
           </Button>
-          {/* <Button
-            title="Add deck"
-            onPress={() => this.props.navigation.navigate('AddDeck')}
-          /> */}
         </View>
       </Container>
     );
