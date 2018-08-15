@@ -25,7 +25,7 @@ class DeckDetailsScreen extends Component {
   };
 
   handleStartQuiz = () => {
-    console.log('start quiz...');
+    this.props.navigation.navigate('Quiz');
   };
 
   render() {

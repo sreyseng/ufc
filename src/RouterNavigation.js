@@ -3,13 +3,15 @@ import HomeScreen from './HomeScreen';
 import AddDeckScreen from './AddDeckScreen';
 import DeckDetailsScreen from './DeckDetailsScreen';
 import AddCardScreen from './AddCardScreen';
+import QuizScreen from './QuizScreen';
 
 const RouterNavigation = createStackNavigator(
   {
     Home: HomeScreen,
     AddDeck: AddDeckScreen,
     DeckDetails: DeckDetailsScreen,
-    AddCard: AddCardScreen
+    AddCard: AddCardScreen,
+    Quiz: QuizScreen
   },
   {
     initialRouteName: 'Home',
