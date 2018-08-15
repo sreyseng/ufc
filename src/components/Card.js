@@ -50,7 +50,7 @@ class Card extends Component {
               }}>
               {item.title}
             </Animated.Text>
-            <CardContent>{item.questions.length} Cards</CardContent>{' '}
+            <CardContent>{item.questions.length} Cards</CardContent>
           </View>
         </CardContainer>
       </TouchableWithoutFeedback>
