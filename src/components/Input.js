@@ -26,14 +26,23 @@ const ErrorText = styled.Text`
   text-align: center;
 `;
 
-const Input = ({ label, placeholder, value, onChangeText, errors }) => {
+const Input = ({
+  label,
+  placeholder,
+  value,
+  onChangeText,
+  errors,
+  fieldType
+}) => {
   return (
     <Container>
-      <InputLabel>Title</InputLabel>
+      <InputLabel>{label}</InputLabel>
       <InputText
         placeholder={placeholder}
         value={value}
-        onChangeText={onChangeText}
+        onChangeText={
+          fieldType ? (text) => onChangeText(fieldType, text) : onChangeText
+        }
         error={errors && errors.length > 0}
       />
       {errors &&
