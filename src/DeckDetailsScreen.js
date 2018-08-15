@@ -24,8 +24,10 @@ class DeckDetailsScreen extends Component {
     });
   };
 
-  handleStartQuiz = () => {
-    this.props.navigation.navigate('Quiz');
+  handleStartQuiz = (item) => {
+    this.props.navigation.navigate('Quiz', {
+      item
+    });
   };
 
   render() {
@@ -41,7 +43,7 @@ class DeckDetailsScreen extends Component {
       <Container>
         <Card item={item} />
         <Button onPress={() => this.handleAddCard(item.title)}>Add Card</Button>
-        <Button onPress={this.handleStartQuiz}>Start Quiz</Button>
+        <Button onPress={() => this.handleStartQuiz(item)}>Start Quiz</Button>
       </Container>
     );
   }

@@ -3,9 +3,9 @@ import styled from 'styled-components';
 
 const ButtonContainer = styled.TouchableOpacity`
   border-radius: 5px;
-  border: 1px blue;
+  border: ${(props) => (props.secondary ? '1px #ff7961' : '1px blue')};
   margin: 5px;
-  background-color: #273377;
+  background-color: ${(props) => (props.secondary ? '#ba000d' : '#273377')};
 `;
 
 const ButtonText = styled.Text`
@@ -17,9 +17,9 @@ const ButtonText = styled.Text`
   text-align: center;
 `;
 
-const Button = ({ children, onPress }) => {
+const Button = ({ children, onPress, secondary }) => {
   return (
-    <ButtonContainer onPress={onPress}>
+    <ButtonContainer onPress={onPress} secondary={secondary}>
       <ButtonText>{children}</ButtonText>
     </ButtonContainer>
   );
