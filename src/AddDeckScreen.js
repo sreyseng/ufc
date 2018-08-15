@@ -1,34 +1,14 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, Text, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import validator from 'validator';
 import { addDeck } from './actions';
 import Button from './components/Button';
+import Input from './components/Input';
 
 const Container = styled.View`
   flex: 1;
-  margin-left: 5px;
-  margin-right: 5px;
-`;
-
-const Input = styled.TextInput`
-  height: 40px;
-  border: ${(props) => (props.error == true ? '1px red' : '1px gray')}
-  margin-top: 10px;
-`;
-
-const InputLabel = styled.Text`
-  font-size: 20;
-  margin-top: 10px;
-`;
-
-const ErrorText = styled.Text`
-  font-size: 14;
-  margin: 5px;
-  color: red;
-  text-align: center;
 `;
 
 class AddDeckScreen extends Component {
@@ -60,7 +40,7 @@ class AddDeckScreen extends Component {
     if (!validator.isLength(deckTitle, { min: 2, max: 50 })) {
       errors.push('Deck title must be between 2 and 50 characters.');
     }
-    console.log(errors.length);
+
     if (errors.length > 0) {
       this.setState({ errors });
     } else {
@@ -72,16 +52,14 @@ class AddDeckScreen extends Component {
   render() {
     return (
       <Container>
-        <InputLabel>Title</InputLabel>
         <Input
+          label="Title"
           placeholder="Enter deck title"
           value={this.state.deckTitle}
           onChangeText={this.handleTextChange}
-          error={this.state.errors.length > 0 ? true : false}
+          errors={this.state.errors}
         />
-        {this.state.errors.length > 0 && (
-          <ErrorText>{_.map(this.state.errors).join('\n')}</ErrorText>
-        )}
+
         <Button onPress={this.handleAddDeck}>Add Deck</Button>
       </Container>
     );
