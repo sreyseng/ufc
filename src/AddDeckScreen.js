@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import validator from 'validator';
 import { addDeck } from './actions';
-import { isEmpty } from 'rxjs/operators';
+import Button from './components/Button';
 
 const Container = styled.View`
   flex: 1;
@@ -82,7 +82,7 @@ class AddDeckScreen extends Component {
         {this.state.errors.length > 0 && (
           <ErrorText>{_.map(this.state.errors).join('\n')}</ErrorText>
         )}
-        <Button title="Add Deck" onPress={this.handleAddDeck} />
+        <Button onPress={this.handleAddDeck}>Add Deck</Button>
       </Container>
     );
   }

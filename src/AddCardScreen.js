@@ -1,12 +1,11 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import validator from 'validator';
 import { addCardToDeck } from './actions';
-import { isEmpty } from 'rxjs/operators';
-import { isValid } from 'ipaddr.js';
+import Button from './components/Button';
 
 const Container = styled.View`
   flex: 1;
@@ -117,7 +116,7 @@ class AddCardScreen extends Component {
           <ErrorText>{_.map(this.state.errors.answer).join('\n')}</ErrorText>
         )}
 
-        <Button title="Add Card" onPress={this.handleAddCard} />
+        <Button onPress={this.handleAddCard}>Add Card</Button>
       </Container>
     );
   }

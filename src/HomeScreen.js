@@ -1,16 +1,11 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  View,
-  Text,
-  Button,
-  FlatList,
-  TouchableWithoutFeedback
-} from 'react-native';
+import { View, Text, FlatList, TouchableWithoutFeedback } from 'react-native';
 import styled from 'styled-components';
 import { getDecks, addDeck, resetDecks } from './actions';
 import Card from './components/Card';
+import Button from './components/Button';
 
 const Container = styled.View`
   flex: 1;
@@ -46,10 +41,13 @@ class HomeScreen extends Component {
           />
         </View>
         <View>
-          <Button
+          <Button onPress={() => this.props.navigation.navigate('AddDeck')}>
+            Add Deck
+          </Button>
+          {/* <Button
             title="Add deck"
             onPress={() => this.props.navigation.navigate('AddDeck')}
-          />
+          /> */}
         </View>
       </Container>
     );

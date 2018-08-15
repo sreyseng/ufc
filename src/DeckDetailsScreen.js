@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, Button } from 'react-native';
+import { Text } from 'react-native';
 import styled from 'styled-components';
 import Card from './components/Card';
+import Button from './components/Button';
 
 const Container = styled.View`
   flex: 1;
@@ -39,11 +40,8 @@ class DeckDetailsScreen extends Component {
     return (
       <Container>
         <Card item={item} />
-        <Button
-          title="Add Card"
-          onPress={() => this.handleAddCard(item.title)}
-        />
-        <Button title="Start Quiz" onPress={this.handleStartQuiz} />
+        <Button onPress={() => this.handleAddCard(item.title)}>Add Card</Button>
+        <Button onPress={this.handleStartQuiz}>Start Quiz</Button>
       </Container>
     );
   }
