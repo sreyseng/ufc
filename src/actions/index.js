@@ -12,7 +12,7 @@ export const getDecks = () => {
   };
 };
 
-export const addDeck = (title) => {
+export const addDeck = (title, callback) => {
   if (!title) {
     console.warn('title required');
     return;
@@ -36,6 +36,7 @@ export const addDeck = (title) => {
           type: DECK_CREATED,
           payload: deck
         });
+        callback();
       });
     });
   };

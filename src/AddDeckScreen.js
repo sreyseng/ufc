@@ -44,8 +44,11 @@ class AddDeckScreen extends Component {
     if (errors.length > 0) {
       this.setState({ errors });
     } else {
-      this.props.addDeck(deckTitle);
-      this.props.navigation.navigate('Home');
+      this.props.addDeck(deckTitle, () => {
+        this.props.navigation.replace('DeckDetails', {
+          item: this.props.decks[deckTitle]
+        });
+      });
     }
   };
 
@@ -66,7 +69,13 @@ class AddDeckScreen extends Component {
   }
 }
 
+function mapStateToProps({ decks }) {
+  return {
+    decks
+  };
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   { addDeck }
 )(AddDeckScreen);
