@@ -8,4 +8,5 @@ This project was bootstrapped with [Create React Native App](https://github.com/
 
 ## Tested Platforms
 
-- Tested on IOS emulator (Iphone 6, IOS 11.4)
+- IOS emulator (Iphone 6, IOS 11.4)
+- Android emulator (Nexus_6_API_27)
